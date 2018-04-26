@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Photo;
+use App\Photos;
 
 class PhotosTableSeeder extends Seeder
 {
@@ -14,7 +14,7 @@ class PhotosTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
         for ($i = 0; $i < 45; $i++) {
-            $photo = new Photo();
+            $photo = new Photos();
             $photo->title = $faker->title;
             $photo->url = $faker->url;
             $photo->save();
