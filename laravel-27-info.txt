@@ -1,0 +1,6 @@
+LARAVEL 27 - OD ZERA DO WEBDEVA
+
+1. pore pobraniu z repozytorium lub kopiowaniu instalujemy
+composer install
+
+2. 
