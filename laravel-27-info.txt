@@ -90,4 +90,6 @@ Route::group([
 
 13. W pliku kernel dodajemy informacje o middleware w zaleznosci co chcemy web, api , pojedynczy
 
+'pages' => \App
+
 
