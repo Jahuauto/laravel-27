@@ -29,8 +29,31 @@ class User extends Authenticatable {
     ];
 
     public function roles() {
-        
-        return $this->belongsToMany(Roles::class, 'roles_has_users', 'users_id', 'roles_id')->withTimestamps();
+       
+        return $this->belongsToMany(Roles::class, 'roles_has_users', 'users_id', 'roles_id')->withTimestamps();     
+    }
+    
+    public function hasAnyRole ($roles){
+        if(is_array($roles)){
+            foreach ($roles as $role){
+                if($this->hasRole($role)){
+                    return true;
+                }
+            }
+        }
+        else {
+            if ($this->hasRole($roles)){
+                return ture;
+            }
+        }
+        return false;
+    }
+    public function hasRole($role){
+        if ($this->roles()->where('name', $role)->first()){
+            echo $this->roles()->where('name', $role)->first();
+            return true;
+        }
+        return false;
     }
 
 }

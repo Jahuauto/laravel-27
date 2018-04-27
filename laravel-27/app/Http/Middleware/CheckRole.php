@@ -15,14 +15,19 @@ class CheckRole
      */
     public function handle($request, Closure $next)
     {
-
         if ($request->user() === null){
             return redirect('/login');
-        }
-        
+        }        
         $action = $request->route()->getAction();
+        echo "<pre>";
+        print_r ($action);
+        echo "</pre>";
         $roles = isset($action['roles']) ? $action['roles'] : null;
         
-        return $next($request);
+        if ($request->user()->hasAnyRole($roles)){
+            return $next($request);
+        }
+        
+        return redirect('/login');
     }
 }

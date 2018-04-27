@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::group([
     'middleware' => 'roles',
-    'roles' => 'Admin'
+    'roles' => ['Admin'],
         ], function() {
     Route::resource('pages', 'PagesController');
 }

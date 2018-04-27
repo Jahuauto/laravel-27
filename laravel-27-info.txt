@@ -77,8 +77,24 @@ php artisan db:seed
 
 11. tworzymy middleware (warstwa pomiedzy requestem od uzytkownika a kontrolerem - cos co sie ma uruchomic wczesniej niz kontroler - my sprawdzimy czy uzytkownik ma prawo do uzystakania dostepu do konkretnego zasobu)
 php artisan make:middleware CheckRole
+w Middleware\ChceckRole w metodzie handle dopisujemy sprawdzenie wartunkow middleware
+
+----
+public function handle($request, Closure $next)
+    {
+        if ($request->user() === null){
+            return redirect('/login');
+        }        
+        $action = $request->route()->getAction();
+        $roles = isset($action['roles']) ? $action['roles'] : null;
+        
+        return $next($request);
+    }
+------
 
 12 wracamy do routingu i musimy zapiac nasze role w grupe
+
+gdzie okreslamy nazwe funkcji ktora to bedzie w middlewarze odpowiedzialna z wykonanie przed kontrolerem w tym przypadkuy 'middleware' => 'roles',
 
 Route::group([
 	'middleware' => 'roles',
@@ -90,6 +106,14 @@ Route::group([
 
 13. W pliku kernel dodajemy informacje o middleware w zaleznosci co chcemy web, api , pojedynczy
 
-'pages' => \App
+'roles' => \App\Http\Middleware\CheckRole::class, --- 'middleware' => 'roles', roles wskazuje na middleware checkrole
+
+
+13 w Modelu User sprawdzamy jaka role pewłni uzytkownik w systemi i stad 2 metody
+
+hasAnyRole
+hasRole
+
+
 
 

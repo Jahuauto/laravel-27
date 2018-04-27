@@ -16,8 +16,6 @@ class PagesController extends Controller
     public function index()
     {
         $pages = Pages::paginate(10);
-        $pages->withPath('janek/url');
-        
         return view('pages.index', compact('pages'));
     }
 
